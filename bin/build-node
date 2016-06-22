@@ -1,0 +1,33 @@
+#!/bin/sh
+cd "`dirname "$0"`/.."
+
+CA_KEY_FILE=${CA_KEY_FILE:-certificates/ca-key.pem}
+CA_FILE=${CA_FILE:-certificates/ca.pem}
+NODE_KEY_FILE=${NODE_KEY_FILE:-certificates/$1-key.pem}
+NODE_CA_FILE=${NODE_CA_FILE:-certificates/$1-cert.pem}
+NODE_CSR_FILE=${NODE_CSR_FILE:-certificates/$1.csr}
+CA_C=${CA_C:-"FR"}
+CA_CN=${CA_CN:-"node"}
+
+fail() {
+    echo $1 1>&2
+    echo "Usage: $0 [NODE NAME]" 1>&2
+    exit 1
+}
+[ $# -lt 1 ] && \
+    fail "Invalid number of arguments"
+[ ! -f $CA_KEY_FILE ] && \
+    fail "CA private key $CA_KEY_FILE can not be found."
+[ ! -f $CA_FILE ] && \
+    fail "CA certificate $CA_FILE can not be found."
+
+[ ! -f $NODE_KEY_FILE ] && \
+    openssl genrsa -out $NODE_KEY_FILE 2048
+
+[ ! -f $NODE_CSR_FILE ] && \
+    openssl req -key $NODE_KEY_FILE -new -subj "/C=$CA_C/CN=$CA_CN" -out $NODE_CSR_FILE
+
+[ ! -f $NODE_CA_FILE ] && \
+    openssl x509 -CA $CA_FILE -CAkey $CA_KEY_FILE -CAcreateserial -days 1825 -extfile /usr/lib/ssl/openssl.cnf -extensions v3_req -in $NODE_CSR_FILE -out $NODE_CA_FILE -req
+
+exit 0

@@ -1,0 +1,14 @@
+#!/bin/sh
+cd "`dirname "$0"`/.."
+
+CA_KEY_FILE=${CA_KEY_FILE:-certificates/ca-key.pem}
+CA_FILE=${CA_FILE:-certificates/ca.pem}
+CA_C=${CA_C:-FR}
+
+[ ! -f $CA_KEY_FILE ] && \
+    openssl genrsa -out $CA_KEY_FILE 2048
+
+[ ! -f $CA_FILE ] && \
+    openssl req -config /usr/lib/ssl/openssl.cnf -days 1825 -key $CA_KEY_FILE -new -out $CA_FILE -subj "/C=$CA_C" -x509
+
+exit 0
