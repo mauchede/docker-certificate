@@ -3,31 +3,44 @@ cd "`dirname "$0"`/.."
 
 CA_KEY_FILE=${CA_KEY_FILE:-certificates/ca-key.pem}
 CA_FILE=${CA_FILE:-certificates/ca.pem}
-NODE_KEY_FILE=${NODE_KEY_FILE:-certificates/$1-key.pem}
-NODE_CA_FILE=${NODE_CA_FILE:-certificates/$1-cert.pem}
-NODE_CSR_FILE=${NODE_CSR_FILE:-certificates/$1.csr}
-CA_C=${CA_C:-"FR"}
-CA_CN=${CA_CN:-"node"}
+TEMPLATE_CONFIG_FILE=${TEMPLATE_CONFIG_FILE:-src/openssl.cnf}
 
 fail() {
     echo $1 1>&2
-    echo "Usage: $0 [NODE NAME]" 1>&2
+    echo "Usage: $0 [NODE NAME] [IP]" 1>&2
     exit 1
 }
-[ $# -lt 1 ] && \
+[ $# -lt 2 ] && \
     fail "Invalid number of arguments"
 [ ! -f $CA_KEY_FILE ] && \
     fail "CA private key $CA_KEY_FILE can not be found."
 [ ! -f $CA_FILE ] && \
     fail "CA certificate $CA_FILE can not be found."
+[ ! -f $TEMPLATE_CONFIG_FILE ] && \
+    fail "OpenSSL configuration template $TEMPLATE_CONFIG_FILE can not be found."
+
+NODE_CONFIG_FILE=${NODE_CONFIG_FILE:-certificates/$1-openssl.cnf}
+NODE_KEY_FILE=${NODE_KEY_FILE:-certificates/$1-key.pem}
+NODE_CA_FILE=${NODE_CA_FILE:-certificates/$1-cert.pem}
+NODE_CSR_FILE=${NODE_CSR_FILE:-certificates/$1.csr}
 
 [ ! -f $NODE_KEY_FILE ] && \
     openssl genrsa -out $NODE_KEY_FILE 2048
 
-[ ! -f $NODE_CSR_FILE ] && \
-    openssl req -key $NODE_KEY_FILE -new -subj "/C=$CA_C/CN=$CA_CN" -out $NODE_CSR_FILE
+if [ ! -f $NODE_CONFIG_FILE ] ; then
+    cp $TEMPLATE_CONFIG_FILE $NODE_CONFIG_FILE
+    sed -i "s/%IP%/$2/g" certificates/$1-openssl.cnf
+fi
+
+if [ ! -f $NODE_CSR_FILE ] ; then
+    SUBJ="/C=${CA_C:-"FR"}"
+    [ -n "$CA_CN" ] && \
+        SUBJ="$SUBJ/CN=$CA_CN"
+
+    openssl req -config $NODE_CONFIG_FILE -key $NODE_KEY_FILE -new -subj $SUBJ -out $NODE_CSR_FILE
+fi
 
 [ ! -f $NODE_CA_FILE ] && \
-    openssl x509 -CA $CA_FILE -CAkey $CA_KEY_FILE -CAcreateserial -days 1825 -extfile /usr/lib/ssl/openssl.cnf -extensions v3_req -in $NODE_CSR_FILE -out $NODE_CA_FILE -req
+    openssl x509 -CA $CA_FILE -CAkey $CA_KEY_FILE -CAcreateserial -days 1825 -extfile $NODE_CONFIG_FILE -extensions v3_req -in $NODE_CSR_FILE -out $NODE_CA_FILE -req
 
 exit 0

@@ -5,8 +5,8 @@
 ```sh
 bin/build-ca
 
-CA_CN="1.1.1.1" bin/build-node "node-1"
-CA_CN="2.2.2.2" bin/build-node "NODE-2"
+CA_CN="foo.com" bin/build-node "node-1" "1.1.1.1"
+CA_CN="bar.com" bin/build-node "node-2" "2.2.2.2"
 ```
 
 ## Contributing
@@ -19,4 +19,5 @@ CA_CN="2.2.2.2" bin/build-node "NODE-2"
 
 ## Links
 
-* [configure TLS](https://docs.docker.com/swarm/configure-tls/)
+* [configure tls](https://docs.docker.com/swarm/configure-tls/)
+* [using ssl with an ip address instead of dns](https://bowerstudios.com/node/1007)

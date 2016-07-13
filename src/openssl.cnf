@@ -1,0 +1,19 @@
+[ req ]
+attributes = req_attributes
+distinguished_name = req_distinguished_name
+req_extensions = v3_req
+x509_extensions = v3_ca
+
+[ alt_names ]
+IP.1 = %IP%
+
+[ req_attributes ]
+
+[ req_distinguished_name ]
+
+[ v3_ca ]
+
+[ v3_req ]
+basicConstraints = CA:FALSE
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+subjectAltName = @alt_names
