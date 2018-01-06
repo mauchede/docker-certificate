@@ -25,7 +25,7 @@ fi
 
 case "$1" in
     install )
-        curl --location --output /usr/local/bin/generate-certs "https://github.com/mauchede/docker-certificate/raw/master/bin/generate-certs"
+        curl --location --output /usr/local/bin/generate-certs "https://github.com/mauchede/docker-certificate/raw/master/bin/cmd"
         chmod +x /usr/local/bin/generate-certs
     ;;
 

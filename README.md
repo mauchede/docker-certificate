@@ -4,13 +4,6 @@ Set of files for protecting Docker daemon socket
 
 ## Installation
 
-Copy `bin/generate-certs` into your executable folder (like `/usr/local/bin` or `$HOME/bin`):
-
-```sh
-sudo curl --location --output /usr/local/bin/generate-certs "https://github.com/mauchede/docker-certificate/raw/master/bin/generate-certs"
-sudo chmod +x /usr/local/bin/generate-certs
-```
-
 Linux users can use the [installer](https://github.com/mauchede/docker-certificate/blob/master/bin/installer):
 
 ```sh
