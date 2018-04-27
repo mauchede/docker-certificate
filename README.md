@@ -4,10 +4,10 @@ Set of files for protecting Docker daemon socket
 
 ## Installation
 
-Linux users can use the [installer](https://github.com/mauchede/docker-certificate/blob/master/bin/installer):
+Linux users can use the [installer](https://github.com/mauchede/docker-certificates/blob/master/bin/installer):
 
 ```sh
-curl --location "https://github.com/mauchede/docker-certificate/raw/master/bin/installer" | sudo sh -s -- install
+curl --location "https://github.com/mauchede/docker-certificates/raw/master/bin/installer" | sudo sh -s -- install
 ```
 
 ## Usage

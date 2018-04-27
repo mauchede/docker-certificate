@@ -21,4 +21,4 @@ docker run \
     --volume "${HOME}:${HOME}" \
     --volume "${PWD}:${PWD}" \
     --workdir "${PWD}" \
-    "${IMAGE:-mauchede/docker-certificate}:${TAG:-latest}" generate-certs "$@"
+    "${IMAGE:-mauchede/docker-certificates}:${TAG:-latest}" generate-certs "$@"

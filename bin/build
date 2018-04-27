@@ -2,4 +2,4 @@
 set -ex
 cd "$(dirname "$0")/../src"
 
-docker build --tag "${IMAGE:-mauchede/docker-certificate}:${TAG:-latest}" .
+docker build --tag "${IMAGE:-mauchede/docker-certificates}:${TAG:-latest}" .
