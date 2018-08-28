@@ -7,14 +7,26 @@ Set of files for protecting Docker daemon socket
 Linux users can use the [installer](https://github.com/mauchede/docker-certificates/blob/master/bin/installer):
 
 ```sh
+# Define installation folder
+
+export INSTALL_DIRECTORY=/usr/bin
+
+# Use local installation
+
+sudo bin/installer install
+
+# Use remote installation
+
 curl --location "https://github.com/mauchede/docker-certificates/raw/master/bin/installer" | sudo sh -s -- install
 ```
+
+__Note__: If you do not define `INSTALL_DIRECTORY`, `installer` will use in `/usr/local/bin`.
 
 ## Usage
 
 ```sh
-export SSL_SIZE="4096"
-export SSL_SUBJECT="my-server.com"
+export SSL_SIZE=4096
+export SSL_SUBJECT=my-server.com
 
 mkdir -p "${HOME}/.docker/certs/my-server"
 sh -c "cd '${HOME}/.docker/certs/my-server' && bin/generate-certs"
@@ -33,6 +45,8 @@ __Note__: Available environment variables are listed in [OMGWTFSSL's README](htt
 ## Credits
 
 The used script has been created by [paulczar](https://github.com/paulczar).
+
+If you like / use this project, please let me known by adding a [★](https://help.github.com/articles/about-stars/) on the [GitHub repository](https://github.com/mauchede/docker-certificates).
 
 ## Links
 
