@@ -4,8 +4,6 @@ Set of files for protecting Docker daemon socket
 
 ## Installation
 
-Linux users can use the [installer](https://github.com/mauchede/docker-certificates/blob/master/bin/installer):
-
 ```sh
 # Define installation folder
 
