@@ -15,7 +15,7 @@ sudo bin/installer install
 
 # Use remote installation
 
-curl --location "https://github.com/mauchede/docker-certificates/raw/master/bin/installer" | sudo sh -s -- install
+curl --location "https://gitlab.com/mauchede/docker-certificates/raw/master/bin/installer" | sudo sh -s -- install
 ```
 
 __Note__: If you do not define `INSTALL_DIRECTORY`, `installer` will use in `/usr/local/bin`.
@@ -38,11 +38,13 @@ __Note__: Available environment variables are listed in [OMGWTFSSL's README](htt
 2. Create your branch: `git checkout -b my-new-feature`.
 3. Commit your changes: `git commit -am 'Add some feature'`.
 4. Push to the branch: `git push origin my-new-feature`.
-5. Submit a pull request.
+5. Submit a [merge request](https://docs.gitlab.com/ee/user/project/merge_requests/).
 
-__Note__: Use the script `bin/build-image` to test your modifications locally.
+__Note 1__: [GitHub repository](https://github.com/mauchede/docker-certificates) is a mirror. [Merge request](https://docs.gitlab.com/ee/user/project/merge_requests/) has to be submitted on the [GitLab repository](https://gitlab.com/mauchede/docker-certificates).
 
-If you like / use this project, please let me known by adding a [★](https://help.github.com/articles/about-stars/) on the [GitHub repository](https://github.com/mauchede/docker-certificates).
+__Note 2__: Use the script `bin/build-image` to test your modifications locally.
+
+If you like / use this project, please let me known by adding a [★](https://help.github.com/articles/about-stars/) on the [GitHub repository](https://github.com/mauchede/docker-certificates) or on the [GitLab repository](https://gitlab.com/mauchede/docker-certificates).
 
 ## Credits
 
@@ -53,5 +55,5 @@ The used script has been created by [paulczar](https://github.com/paulczar).
 * [configure tls](https://docs.docker.com/swarm/configure-tls/)
 * [paulczar/omgwtfssl](https://github.com/paulczar/omgwtfssl)
 * [protect the docker daemon socket](https://docs.docker.com/engine/security/https/)
-* [timonier/dumb-entrypoint](https://github.com/timonier/dumb-entrypoint)
+* [timonier/dumb-entrypoint](https://gitlab.com/timonier/dumb-entrypoint)
 * [using ssl with an ip address instead of dns](https://bowerstudios.com/node/1007)
